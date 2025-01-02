@@ -9,7 +9,7 @@ public class LoginAutomationTest {
     @Test
     public void testLogin() {
         // Set up the WebDriver
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "C://Users//varsh//Downloads//chromedriver_win32");
         WebDriver driver = new ChromeDriver();
     try {
         // Navigate to the login page
