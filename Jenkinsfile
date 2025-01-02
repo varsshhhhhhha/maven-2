@@ -24,8 +24,8 @@ pipeline {
                 withSonarQubeEnv('sonarqube') { // Ensure this matches your SonarQube configuration
                     bat """
                         mvn clean verify sonar:sonar \
-                        -Dsonar.projectKey=mavenproject \
-                        -Dsonar.projectName='mavenproject' \
+                        -Dsonar.projectKey=newmaven \
+                        -Dsonar.projectName='newmaven' \
                         -Dsonar.host.url=http://localhost:9000 \
                         -Dsonar.token=sqa_5be023dee2d8540fe49685a78f022745c5fdd98a
                     """
