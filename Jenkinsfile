@@ -27,7 +27,7 @@ pipeline {
                         -Dsonar.projectKey=newmaven \
                         -Dsonar.projectName='newmaven' \
                         -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.token=sqa_5be023dee2d8540fe49685a78f022745c5fdd98a
+                        -Dsonar.token=sqa_0399ad10c9c66730ae457056710645420534c66b
                     """
                 }
             }
