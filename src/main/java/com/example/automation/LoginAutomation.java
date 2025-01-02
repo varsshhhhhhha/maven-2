@@ -3,8 +3,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-public class LoginAutomationTest {
- @Test
+public class LoginAutomation {
+ 
  public void testLogin() {
  // Set up the WebDriver
  System.setProperty("webdriver.chrome.driver", "C:\\Users\\varsh\\Downloads\\chromedriver_win32\\chromedriver.exe");
@@ -24,9 +24,14 @@ public class LoginAutomationTest {
  String expectedTitle = "Dashboard";
  String actualTitle = driver.getTitle();
  assertEquals(expectedTitle, actualTitle);
- } finally {
- // Close the browser
- driver.quit();
- }
+  } finally {
+  // Close the browser
+  driver.quit();
+  }
+  }
+ 
+ private void assertEquals(String expectedTitle, String actualTitle) {
+     // TODO Auto-generated method stub
+     throw new UnsupportedOperationException("Unimplemented method 'assertEquals'");
  }
 }
