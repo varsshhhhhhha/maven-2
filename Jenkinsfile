@@ -19,6 +19,13 @@ pipeline {
                 bat 'mvn clean package'
             }
         }
+        stage('Code Coverage Report') {
+            steps {
+                publishCoverage adapters: [
+                    jacocoAdapter('target/site/jacoco/jacoco.xml') // Path to JaCoCo XML report
+                ]
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') { // Ensure this matches your SonarQube configuration
