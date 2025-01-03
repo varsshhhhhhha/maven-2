@@ -42,14 +42,13 @@ pipeline {
             echo 'Pipeline failed.'
         }
         always {
-            // Publish JaCoCo HTML Report
-            publishHTML([
-                allowMissing: true,
-                keepAll: true,
-                reportDir: 'target/site/jacoco',
-                reportFiles: 'index.html',
-                reportName: 'JaCoCo Coverage Report'
-            ])
+            script {
+                if (fileExists('target/site/jacoco/index.html')) {
+                    echo 'JaCoCo HTML report generated.'
+                } else {
+                    echo 'JaCoCo HTML report not found.'
+                }
+            }
         }
     }
 }
