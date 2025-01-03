@@ -27,7 +27,11 @@ pipeline {
                         -Dsonar.projectKey=newmaven \
                         -Dsonar.projectName='newmaven' \
                         -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.token=sqa_0399ad10c9c66730ae457056710645420534c66b 
+                        -Dsonar.token=sqa_0399ad10c9c66730ae457056710645420534c66b\
+                        -Dsonar.tests=src/test/java \
+                        -Dsonar.junit.reportPaths=target/surefire-reports \
+                        -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml \
+                        -Dsonar.pmd.reportPaths=target/pmd-duplicates.xml \
                     """
                 }
             }

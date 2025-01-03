@@ -46,6 +46,76 @@
                 <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-    </plugins>
-</build>
+            <!-- JaCoCo Maven Plugin for Code Coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+            <executions>
+            <execution>
+                <goals>
+                    <goal>prepare-agent</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>report</id>
+                <phase>verify</phase>
+                <goals>
+                    <goal>report</goal>
+            </goals>
+            </execution>
+            </executions>
+            </plugin>
+ 
+            <!-- PMD Plugin for Code Duplication Detection -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.14.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>pmd</goal>
+                    </goals>
+            <configuration>
+            <!-- PMD Configuration for Duplication -->
+            <rulesets>
+                <ruleset>rulesets/java/duplicates.xml</ruleset>
+            </rulesets>
+                <outputFile>target/pmd-duplicates.xml</outputFile>
+            <generateHtmlReport>false</generateHtmlReport>
+            </configuration>
+            </execution>
+            </executions>
+            </plugin>
+            </plugins>
+        </build>
+        <profiles>
+        <!-- Profile to Run Sonar Analysis -->
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <property>
+                    <name>sonar</name>
+                </property>
+            </activation>
+        <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            <executions>
+            <execution>
+                <phase>verify</phase>
+                <goals>
+                    <goal>sonar</goal>
+                </goals>
+            </execution>
+            </executions>
+            </plugin>
+        </plugins>
+        </build>
+        </profile>
+    </profiles>
 </project>
