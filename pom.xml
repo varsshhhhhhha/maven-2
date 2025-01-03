@@ -30,6 +30,25 @@
             <artifactId>selenium-java</artifactId>
             <version>4.10.0</version>
         </dependency>
+        <dependencies>
+        
+        <!-- Mockito Dependency for Mocking -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.11.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito JUnit Jupiter Extension Dependency -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.11.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     </dependencies>
     <build>
         <plugins>
@@ -84,6 +103,7 @@
                     </includes>
                 </configuration>
             </plugin>
+            
         </plugins>
     </build>
 </project>
