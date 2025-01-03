@@ -14,23 +14,16 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build') {
+        stage('Build and Test') {
             steps {
-                bat 'mvn clean package'
-            }
-        }
-        stage('Code Coverage Report') {
-            steps {
-                publishCoverage adapters: [
-                    jacocoAdapter('target/site/jacoco/jacoco.xml') // Path to JaCoCo XML report
-                ]
+                bat 'mvn clean verify'
             }
         }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') { // Ensure this matches your SonarQube configuration
                     bat """
-                        mvn clean verify sonar:sonar \
+                        mvn sonar:sonar \
                         -Dsonar.projectKey=newmaven \
                         -Dsonar.projectName='newmaven' \
                         -Dsonar.host.url=http://localhost:9000 \
@@ -47,6 +40,16 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed.'
+        }
+        always {
+            // Publish JaCoCo HTML Report
+            publishHTML([
+                allowMissing: true,
+                keepAll: true,
+                reportDir: 'target/site/jacoco',
+                reportFiles: 'index.html',
+                reportName: 'JaCoCo Coverage Report'
+            ])
         }
     }
 }
