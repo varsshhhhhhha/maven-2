@@ -3,11 +3,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-public class LoginAutomation {
- 
+public class LoginAutomationTest {
+ @Test
  public void testLogin() {
  // Set up the WebDriver
- System.setProperty("webdriver.chrome.driver", "C:\\Users\\varsh\\Downloads\\chromedriver_win32\\chromedriver.exe");
+ System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
  WebDriver driver = new ChromeDriver();
  try {
  // Navigate to the login page
