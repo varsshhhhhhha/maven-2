@@ -12,6 +12,7 @@
         <sonar.projectKey>maven-pro1</sonar.projectKey>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+        <sonar.tests>src/test/java</sonar.tests>
     </properties>
     <dependencies>
         <!-- JUnit 5 -->
@@ -31,33 +32,32 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
+           <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version> <!-- Latest version -->
+                <version>0.8.10</version>
                 <executions>
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
-                            <goal>prepare-agent</goal> <!-- Activates JaCoCo -->
+                            <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>report</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>report</goal> <!-- Generates coverage report -->
+                            <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+                            <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                            <reportFormats>
+                                <reportFormat>XML</reportFormat>
+                            </reportFormats>
+                        </configuration>
                     </execution>
                 </executions>
-                 <configuration>
-                <!-- Location for the XML coverage report -->
-                <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
-                <dataFile>${project.build.directory}/jacoco.exec</dataFile>
-                <reportFormats>
-                    <reportFormat>XML</reportFormat>
-                    <reportFormat>HTML</reportFormat>
-                </reportFormats>
-            </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
