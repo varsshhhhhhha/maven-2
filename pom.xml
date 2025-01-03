@@ -30,8 +30,7 @@
             <artifactId>selenium-java</artifactId>
             <version>4.10.0</version>
         </dependency>
-        <dependencies>
-        
+             
         <!-- Mockito Dependency for Mocking -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -49,7 +48,6 @@
         </dependency>
     </dependencies>
 
-    </dependencies>
     <build>
         <plugins>
            <plugin>
