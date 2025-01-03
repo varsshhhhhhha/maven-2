@@ -43,6 +43,7 @@ pipeline {
             echo 'Pipeline failed.'
         }
         always {
+            archiveArtifacts artifacts: 'target/site/jacoco/**/*', allowEmptyArchive: true
             script {
                 if (fileExists('target/site/jacoco/index.html')) {
                     echo 'JaCoCo HTML report generated.'

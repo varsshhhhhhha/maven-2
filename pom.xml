@@ -12,7 +12,8 @@
         <sonar.projectKey>maven-pro1</sonar.projectKey>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.login>${env.SONAR_TOKEN}</sonar.login>
-        <sonar.tests>src/test/java</sonar.tests>
+        <!-- <sonar.tests>src/test/java</sonar.tests> -->
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
         <!-- JUnit 5 -->
