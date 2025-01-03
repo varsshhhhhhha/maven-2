@@ -1,41 +1,53 @@
 package com.example.automation;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class LoginAutomationTest {
+class LoginAutomationTest {
 
     @Test
-    public void testLoginSuccess() {
-        // Set up the WebDriver
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\varsh\\Downloads\\chromedriver_win32\\chromedriver.exe");
+    void testSuccessfulLogin() {
+        WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
 
         try {
+            LoginAutomation loginAutomation = new LoginAutomation(driver);
+
             // Navigate to the login page
-            driver.get("https://example.com/login");
+            loginAutomation.navigateToLoginPage("https://the-internet.herokuapp.com/login");
 
-            // Locate the username and password fields
-            WebElement usernameField = driver.findElement(By.id("username"));
-            WebElement passwordField = driver.findElement(By.id("password"));
-            WebElement loginButton = driver.findElement(By.id("loginButton"));
-
-            // Perform login
-            usernameField.sendKeys("testUser");
-            passwordField.sendKeys("testPassword");
-            loginButton.click();
+            // Perform login with valid credentials
+            loginAutomation.login("tomsmith", "SuperSecretPassword!");
 
             // Validate successful login
-            String expectedTitle = "Dashboard";
-            String actualTitle = driver.getTitle();
-            assertEquals(expectedTitle, actualTitle, "Login failed: Title does not match");
+            String flashMessage = loginAutomation.getFlashMessage();
+            assertTrue(flashMessage.contains("You logged into a secure area!"));
         } finally {
-            // Close the browser
+            driver.quit();
+        }
+    }
+
+    @Test
+    void testFailedLogin() {
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            LoginAutomation loginAutomation = new LoginAutomation(driver);
+
+            // Navigate to the login page
+            loginAutomation.navigateToLoginPage("https://the-internet.herokuapp.com/login");
+
+            // Perform login with invalid credentials
+            loginAutomation.login("invalidUser", "invalidPassword");
+
+            // Validate failed login
+            String flashMessage = loginAutomation.getFlashMessage();
+            assertTrue(flashMessage.contains("Your username is invalid!"));
+        } finally {
             driver.quit();
         }
     }

@@ -19,6 +19,32 @@ pipeline {
                 bat 'mvn clean verify'
             }
         }
+        stage('Clean target folder') {
+            steps {
+                echo 'Cleaning target directory...'
+                bat '''
+                mvn clean
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing the project...'
+                bat '''
+                mvn test
+                '''
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo 'Packaging the compiled code...'
+                bat '''
+                mvn package
+                '''
+            }
+        }
         stage('SonarQube Analysis') {
     steps {
         withSonarQubeEnv('sonarqube') { // Ensure this matches your SonarQube configuration
@@ -28,11 +54,8 @@ pipeline {
                 -Dsonar.projectName='newmaven' \
                 -Dsonar.host.url=http://localhost:9000 \
                 -Dsonar.token=sqa_0399ad10c9c66730ae457056710645420534c66b \
-                -Dsonar.tests=src/test/java \
-                -Dsonar.junit.reportPaths=target/surefire-reports \
-                -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml \
-                -Dsonar.pmd.reportPaths=target/pmd-duplicates.xml \
-                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+                -Dsonar.tests=src/test/java ^
+                -Dsonar.java.binaries=target/classes ^
             """
         }
             }
